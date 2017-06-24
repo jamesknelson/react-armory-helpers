@@ -1,0 +1,16 @@
+{
+  "name": "react-armory-pythagoras-tree",
+  "version": "0.1.0",
+  "description": "An animated fractal tree component. Great for burning excess CPU cycles.",
+  "author": "James K Nelson <james@jamesknelson.com>",
+  "license": "MIT",
+  "module": "index.js",
+  "keywords": [
+    "react",
+    "fractal"
+  ],
+  "peerDependencies": {
+    "react": "^15.5.0",
+    "react-dom": "^15.5.0"
+  }
+}
