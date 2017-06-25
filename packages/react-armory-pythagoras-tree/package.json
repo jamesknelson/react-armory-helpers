@@ -4,8 +4,10 @@
   "description": "An animated fractal tree component. Great for burning excess CPU cycles.",
   "author": "James K Nelson <james@jamesknelson.com>",
   "license": "MIT",
-  "module": "index.js",
+  "main": "index.js",
   "keywords": [
+    "armory",
+    "reactarmory",
     "react",
     "fractal"
   ],

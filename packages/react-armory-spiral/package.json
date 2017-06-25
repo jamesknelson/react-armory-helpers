@@ -4,7 +4,7 @@
   "description": "A utility to provide inline styles for blue spirals.",
   "author": "James K Nelson <james@jamesknelson.com>",
   "license": "MIT",
-  "module": "index.js",
+  "main": "index.js",
   "keywords": [
     "armory",
     "reactarmory"
