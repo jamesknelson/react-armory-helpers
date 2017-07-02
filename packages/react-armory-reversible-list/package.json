@@ -1,0 +1,16 @@
+{
+  "name": "react-armory-reversible-list",
+  "version": "0.1.0",
+  "description": "A reverseible list that can be used to demonstrate how React's key prop works.",
+  "author": "James K Nelson <james@jamesknelson.com>",
+  "license": "MIT",
+  "main": "index.js",
+  "keywords": [
+    "armory",
+    "reactarmory"
+  ],
+  "peerDependencies": {
+    "react": "^15.5.0",
+    "react-dom": "^15.5.0"
+  }
+}
