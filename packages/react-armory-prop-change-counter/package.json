@@ -1,0 +1,17 @@
+{
+  "name": "react-armory-prop-change-counter",
+  "version": "0.1.0",
+  "description": "A component that displays the number of times its props have changed.",
+  "author": "James K Nelson <james@jamesknelson.com>",
+  "license": "MIT",
+  "main": "index.js",
+  "keywords": [
+    "armory",
+    "reactarmory",
+    "react"
+  ],
+  "peerDependencies": {
+    "react": "^15.5.0",
+    "react-dom": "^15.5.0"
+  }
+}

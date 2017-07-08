@@ -13,7 +13,7 @@ export default class ReversibleList extends React.Component {
 
   render() {
     return React.createElement('div', {},
-      React.createElement('div', {}, this.state.items),
+      React.createElement('div', {}, this.state.items.map((x, i) => React.createElement('div', {key: x.key || i}, x))),
       React.createElement('button', { onClick: this.toggle }, 'Reverse'),
     )
   }
