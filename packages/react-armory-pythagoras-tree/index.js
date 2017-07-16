@@ -3,6 +3,51 @@ import PropTypes from 'prop-types'
 
 
 export class PythagorasTree extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      animating: false,
+    }
+
+    this.toggleAnimation = this.toggleAnimation.bind(this)
+  }
+
+  toggleAnimation() {
+    this.setState({ animating: !this.state.animating })
+  }
+
+  render() {
+    const animating = this.state.animating
+    return React.createElement(AnimatedPythagorasTree, { animating },
+      React.createElement('button', {
+        onClick: this.toggleAnimation,
+        type: 'button',
+      }, animating ? 'Stop animation' : 'Start animation'),
+    )
+  }
+}
+
+
+// This Component expects to receive a function on its `onChange` prop.
+// It then calls that function from its own event handlers.
+export function NumericInput({ value, onChange }) {
+  const numericValue = !value ? 0 : parseFloat(value)
+  const setSway = (event) => onChange(event.target.value)
+  const decreaseSway = () => onChange(String(numericValue - 0.02))
+  const increaseSway = () => onChange(String(numericValue + 0.02))
+  
+  return (
+    React.createElement('div', {},
+      React.createElement('button', {type: 'button', onClick: decreaseSway}, '<'),
+      React.createElement('input', {value: value, onChange: setSway}),
+      React.createElement('button', {type: 'button', onClick: increaseSway}, '>'),
+    )
+  )
+}
+
+
+export class AnimatedPythagorasTree extends Component {
   static defaultProps = {
     totalLevels: 5,
     baseLean: 0,
@@ -15,23 +60,8 @@ export class PythagorasTree extends React.Component {
   constructor(props) {
     super(props)
 
-    this.toggleAnimation = this.toggleAnimation.bind(this)
     this.state = {
       time: 0,
-      animating: false,
-    }
-  }
-
-  toggleAnimation() {
-    if (this.nextFrame) {
-      window.cancelAnimationFrame(this.nextFrame)
-      this.nextFrame = null
-      this.setState({ animating: false })
-    }
-    else {
-      this.lastFrameTime = new Date().getTime()
-      this.scheduleFrame()
-      this.setState({ animating: true })
     }
   }
 
@@ -50,8 +80,26 @@ export class PythagorasTree extends React.Component {
     })
   }
 
+  componentDidMount() {
+    if (this.props.animating) {
+      this.lastFrameTime = new Date().getTime()
+      this.scheduleFrame()
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.animating && !nextProps.animating && this.nextFrame) {
+      window.cancelAnimationFrame(this.nextFrame)
+      this.nextFrame = null
+    }
+    else if (!this.props.animating && nextProps.animating) {
+      this.lastFrameTime = new Date().getTime()
+      this.scheduleFrame()
+    }
+  }
+
   componentDidUpdate() {
-    if (this.state.animating) {
+    if (this.props.animating) {
       this.scheduleFrame()
     }
   }
@@ -64,26 +112,25 @@ export class PythagorasTree extends React.Component {
   }
 
   render() {
-    const { sprout, sway, baseHeightFactor, baseLean, size, totalLevels } = this.props
+    const { children, sprout, sway, baseHeightFactor, baseLean, size, totalLevels } = this.props
     const t = this.state.time
 
     return React.createElement('div', {},
-      React.createElement('button', {
-        style: {
-          position: 'absolute',
-          bottom: 10,
-          left: 10,
-        },
-        onClick: this.toggleAnimation,
-        type: 'button',
-      }, this.state.animating ? 'Stop animation' : 'Start animation'),
       React.createElement(TreeBox, {
         heightFactor: Math.cos(t / 43)*sprout + baseHeightFactor,
         lean: Math.sin(t / 50)*sway + baseLean,
         size: size,
         totalLevels: totalLevels,
         level: 0,
-      })
+      }),
+      React.createElement('div', {
+        style: {
+          position: 'absolute',
+          right: 10,
+          bottom: 10,
+          left: 10,
+        },
+      }, children),
     )
   }
 }
