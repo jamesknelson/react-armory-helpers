@@ -1,6 +1,6 @@
 # react-armory-reversible-list
 
-This package is designed to demonstrate why you need `key` props on React Elements in arrays. It exports a `RevesibleList` component that expects a single array as a child, and renders these children along with a "Reverse" button -- which will only work if the child array has keys.
+This package is designed to demonstrate why you need `key` props on React Elements in arrays. It exports a `ReversibleList` component that expects a single array as a child, and renders these children along with a "Reverse" button -- which will only work if the child array has keys.
 
 ## Exports
 
