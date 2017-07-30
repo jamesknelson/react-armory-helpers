@@ -1,6 +1,6 @@
 {
   "name": "react-armory-reversible-list",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A reverseible list that can be used to demonstrate how React's key prop works.",
   "author": "James K Nelson <james@jamesknelson.com>",
   "license": "MIT",
