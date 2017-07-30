@@ -154,8 +154,12 @@ export const TreeBox = (props) => {
   )
 }
 
+TreeBox.defaultProps = {
+  level: 0,
+}
 
-export function getBoxStyle({ size, heightFactor, lean, level, totalLevels, right }) {
+
+export function getBoxStyle({ size, heightFactor, left, lean, level, totalLevels, right }) {
   const color = interpolateColor((level/totalLevels)**2, 80, 120, 54, 240, 104, 64)
   const scale = right
       ? Math.sqrt((size*heightFactor)**2 + (size * (0.5+lean))**2) / size
@@ -180,7 +184,7 @@ export function getBoxStyle({ size, heightFactor, lean, level, totalLevels, righ
   }
 
   if (level === 0) {
-    style.left = `calc(50% - ${size/2}px)`
+    style.left = `calc(50% - ${size/2}px + ${left || 0}px)`
   }
 
   return style
