@@ -19,7 +19,7 @@ export class PythagorasTree extends React.Component {
 
   render() {
     const animating = this.state.animating
-    return React.createElement(AnimatedPythagorasTree, { animating },
+    return React.createElement(AnimatedPythagorasTree, { ...this.props, animating },
       React.createElement('button', {
         onClick: this.toggleAnimation,
         type: 'button',

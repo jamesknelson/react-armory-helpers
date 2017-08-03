@@ -4,7 +4,6 @@ export const containerStyle = {
   display: 'inline-block',
   borderRadius: '2px',
   textAlign: 'right',
-  margin: '5px',
   backgroundColor: '#0f0035',
   color: '#ffb3cb',
 }
@@ -13,6 +12,7 @@ export const timeStyle = {
   lineHeight: '20px',
   height: '29px',
   padding: '5px 5px 4px',
+  fontFamily: "'Lato', 'PT Sans', Helvetica, sans-serif",
 }
 export const titleStyle = {
   fontSize: '10px',
@@ -33,8 +33,8 @@ export const disabledButtonStyle = Object.assign({}, buttonStyle, {
   color: 'rgb(70, 58, 62)',
 })
 
-export function TimerDisplay({ title, time, active, onStart, onStop, onReset }) {
-  return React.createElement('div', { style: containerStyle },
+export function TimerDisplay({ title, margin='5px', time, active, onStart, onStop, onReset }) {
+  return React.createElement('div', { style: Object.assign({margin}, containerStyle) },
     title && React.createElement('div', { style: titleStyle }, title),
     React.createElement('div', { style: timeStyle }, time ? time.toFixed(3) : ""),
     React.createElement('button', {
@@ -48,33 +48,72 @@ export function TimerDisplay({ title, time, active, onStart, onStop, onReset }) 
   )
 }
 
+
 export class Timer {
   constructor(listener) {
     this.time = 0
 
     this.listener = listener
 
-    this.onStart = this.onStart.bind(this)
-    this.onStop = this.onStop.bind(this)
-    this.onReset = this.onReset.bind(this)
+    this.start = this.start.bind(this)
+    this.stop = this.stop.bind(this)
+    this.reset = this.reset.bind(this)
   }
 
-  onStart() {
+  start() {
     this.lastTime = new Date().getTime()
     this.active = setInterval(() => {
       const now = new Date().getTime()
       this.time += (now - this.lastTime) / 1000
       this.lastTime = now
-      this.listener(this.time, this.active)
+      if (this.listener) this.listener(this.time, this.active)
     }, 37)
   }
-  onStop() {
+  stop() {
     clearInterval(this.active)
     this.active = null
-    this.listener(this.time, this.active)
+    if (this.listener) this.listener(this.time, this.active)
   }
-  onReset() {
+  reset() {
     this.time = 0
-    this.listener(this.time, this.active)
+    if (this.listener) this.listener(this.time, this.active)
+  }
+}
+
+
+export class TimerContainer extends React.Component {
+  constructor(props) {
+    super(props)
+    this.timer = new Timer(() => this.setState({
+      time: this.timer.time
+    }))
+    this.start = this.start.bind(this)
+    this.stop = this.stop.bind(this)
+    this.reset = this.reset.bind(this)
+  }
+
+  render() {
+    return React.createElement(TimerDisplay, {
+      title: this.props.title,
+      margin: this.props.margin,
+      time: this.timer.time,
+      active: this.timer.active,
+      onStart: this.start,
+      onStop: this.stop,
+      onReset: this.reset,
+    })
+  }
+
+  start() {
+    this.timer.start()
+    this.setState({ active: true, time: this.timer.time })
+  }
+  stop() {
+    this.timer.stop()
+    this.setState({ active: false })
+  }
+  reset() {
+    this.timer.reset()
+    this.setState({ time: 0 })
   }
 }

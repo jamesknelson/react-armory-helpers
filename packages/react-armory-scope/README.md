@@ -1,10 +1,10 @@
-# react-armory-timer
+# react-armory-scope
 
-This package is designed to help you create a timer component with React.
+This package is designed to help you visualize numbers over time. It works well with the `react-armory-timer` component for visualizing functions of time.
 
 ## Exports
 
-- `<TimerDisplay title={string} time={number} active={boolean} onStart={function} onStop={function} onReset={function}>`
+- `<Scope x={number} y={number} xScale={1} yScale={1} width={200} height={200}>`
 
 ## Why?
 
