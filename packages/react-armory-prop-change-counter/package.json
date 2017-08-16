@@ -1,6 +1,6 @@
 {
   "name": "react-armory-prop-change-counter",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A component that displays the number of times its props have changed.",
   "author": "James K Nelson <james@jamesknelson.com>",
   "license": "MIT",

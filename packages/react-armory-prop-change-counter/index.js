@@ -1,6 +1,7 @@
-import React, { createElement as el } from 'react'
+const React = require('react')
+const el = React.createElement
 
-export default class PropChangeCounter extends React.PureComponent {
+module.exports = class PropChangeCounter extends React.PureComponent {
   constructor(props) {
     super(props)
     this.title = props.title
